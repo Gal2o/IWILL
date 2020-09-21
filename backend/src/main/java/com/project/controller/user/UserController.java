@@ -35,7 +35,7 @@ public class UserController {
         @ApiImplicitParam(name = "email", value = "사용자 E-mail", required = true, dataType = "string"),
         @ApiImplicitParam(name = "upw", value = "사용자 Password", required = true, dataType = "string")
     })
-    public List<UserEntity> login(@Valid @RequestParam String email, @RequestParam String password){
+    public UserEntity login(@RequestParam("uid") String email, @RequestParam("upw") String password){
         return userService.login(email, password);
     }
 
@@ -57,7 +57,7 @@ public class UserController {
             @ApiImplicitParam(name = "profile", value = "자기 소개", required = true, dataType = "string"),
             @ApiImplicitParam(name = "usertype", value = "회원 유형", required = true, dataType = "int"),          
     })
-    public void register(@Valid @RequestBody UserEntity user){
+    public void register(@RequestBody UserEntity user){
         
         userService.register(user);
     }
@@ -71,8 +71,8 @@ public class UserController {
 
     @PostMapping("/user/modify")
     @ApiOperation(value = "회원 정보 수정", notes ="회원 정보 수정 입니다.")
-    @ApiImplicitParam(name = "userdto", value ="UserDto", required = true, dataType = "List")
-    public void modify(@Valid @RequestParam UserEntity user){
+    @ApiImplicitParam(name = "userdto", value = "UserDto", required = true, dataType = "List")
+    public void modify(@RequestParam UserEntity user){
         userService.modify(user);
     }
 
