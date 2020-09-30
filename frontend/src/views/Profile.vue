@@ -54,30 +54,35 @@
               <template slot="tab-pane-1">
                 <div class="text-center" style="margin-bottom:200px;">
                   <div class="col" style="margin-left:250px; width:600px;">
-                    <md-field class="md-form-group" slot="inputs">
-                      <md-icon>face</md-icon>
-                      <label>이름...</label>
-                      <md-input v-model="name"></md-input>
-                    </md-field>
-                    <md-field class="md-form-group" slot="inputs">
-                      <md-icon>phone</md-icon>
-                      <label>전화번호...</label>
-                      <md-input v-model="email" type="email"></md-input>
-                    </md-field>
-                    <md-field class="md-form-group" slot="inputs">
-                      <md-icon>lock_outline</md-icon>
-                      <label>비밀번호...</label>
-                      <md-input v-model="password" type="password"></md-input>
-                    </md-field>
-                    <md-field class="md-form-group" slot="inputs">
-                      <md-icon>lock_outline</md-icon>
-                      <label>비밀번호 확인...</label>
-                      <md-input
-                        v-model="passwordcheck"
-                        type="password"
-                        @keydown.enter="Signup()"
-                      ></md-input>
-                    </md-field>
+                    <div class="col">
+                      <md-field class="md-form-group" slot="inputs">
+                        <md-icon>face</md-icon>
+                        <label>이름...</label>
+                        <md-input v-model="name"></md-input>
+                      </md-field>
+                    </div>
+                    <div class="col">
+                      <md-field class="md-form-group" slot="inputs">
+                        <md-icon>phone</md-icon>
+                        <label>전화번호...</label>
+                        <md-input v-model="email" type="phone"></md-input>
+                      </md-field>
+                    </div>
+                    <div class="col">
+                      <md-field class="md-form-group">
+                        <md-icon>vpn_key</md-icon>
+                        <label>키 값확인</label>
+                        <md-input v-model="hash" disabled></md-input>
+                      </md-field>
+                    </div>
+                    <div class="col">
+                      <md-button
+                        slot="footer"
+                        class="md-simple md-success md-lg"
+                      >
+                        추가 및 변경하기
+                      </md-button>
+                    </div>
                   </div>
                 </div>
               </template>
@@ -141,6 +146,7 @@ export default {
   bodyClass: "profile-page",
   data() {
     return {
+      hash: "키 값 확인",
       explain: "한 줄 자기소개를 적어주세요",
       password: "",
       newpassword: "",
@@ -153,7 +159,7 @@ export default {
   created() {
     const data = new FormData();
     data.append("uid", this.$cookies.get("UserInfo").uid);
-    this.$axios.post(this.$SERVER_URL + "user/detail2", data).then(res => {
+    this.$axios.post(this.$SERVER_URL + "user/detail", data).then(res => {
       this.username = res.data.nickname;
       this.email = res.data.email;
     });
