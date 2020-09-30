@@ -39,31 +39,59 @@
           </div>
           <div class="profile-tabs">
             <tabs
-              :tab-name="['비밀번호 변경', '내 유언장 보기']"
-              :tab-icon="['vpn_key', 'chrome_reader_mode']"
+              :tab-name="[
+                '개인정보 추가/변경',
+                '비밀번호 변경',
+                '내 유언장 보기'
+              ]"
+              :tab-icon="['perm_identity', 'vpn_key', 'chrome_reader_mode']"
               plain
               nav-pills-icons
               color-button="success"
               style="margin-bottom:200px;"
             >
               <!-- here you can add your content for tab-content -->
-              <template slot="tab-pane-1" class="text-center">
+              <template slot="tab-pane-1">
+                <div class="text-center" style="margin-bottom:200px;">
+                  <div class="col" style="margin-left:250px; width:600px;">
+                    <md-field class="md-form-group" slot="inputs">
+                      <md-icon>face</md-icon>
+                      <label>이름...</label>
+                      <md-input v-model="name"></md-input>
+                    </md-field>
+                    <md-field class="md-form-group" slot="inputs">
+                      <md-icon>phone</md-icon>
+                      <label>전화번호...</label>
+                      <md-input v-model="email" type="email"></md-input>
+                    </md-field>
+                    <md-field class="md-form-group" slot="inputs">
+                      <md-icon>lock_outline</md-icon>
+                      <label>비밀번호...</label>
+                      <md-input v-model="password" type="password"></md-input>
+                    </md-field>
+                    <md-field class="md-form-group" slot="inputs">
+                      <md-icon>lock_outline</md-icon>
+                      <label>비밀번호 확인...</label>
+                      <md-input
+                        v-model="passwordcheck"
+                        type="password"
+                        @keydown.enter="Signup()"
+                      ></md-input>
+                    </md-field>
+                  </div>
+                </div>
+              </template>
+              <template slot="tab-pane-2" class="text-center">
                 <div class="text-center">
-                  <div class="col" style="width:600px;">
-                    <div
-                      class="col"
-                      style="display:flex; justify-content:center;"
-                    >
+                  <div class="col" style="margin-left:250px; width:600px;">
+                    <div class="col">
                       <md-field class="md-form-group" slot="inputs">
                         <md-icon>lock_outline</md-icon>
                         <label>현재 비밀번호를 적어주세요.</label>
                         <md-input type="password" v-model="password"></md-input>
                       </md-field>
                     </div>
-                    <div
-                      class="col"
-                      style="display:flex; justify-content:center;"
-                    >
+                    <div class="col">
                       <md-field class="md-form-group" slot="inputs">
                         <md-icon>lock_outline</md-icon>
                         <label>변경하실 비밀번호를 적어주세요.</label>
@@ -74,10 +102,7 @@
                       </md-field>
                     </div>
 
-                    <div
-                      class="col"
-                      style="display:flex; justify-content:center;"
-                    >
+                    <div class="col">
                       <md-field class="md-form-group" slot="inputs">
                         <md-icon>lock_outline</md-icon>
                         <label>적으신 비밀번호를 확인해주세요.</label>
@@ -90,7 +115,7 @@
                   </div>
                 </div>
               </template>
-              <template slot="tab-pane-2">
+              <template slot="tab-pane-3">
                 <div class="text-center" style="margin-bottom:200px;">
                   <div class="col" style="width:600px;">
                     <MyRecord style="margin-bottom:100px;" />
@@ -122,27 +147,7 @@ export default {
       newpasswordcheck: "",
       username: "",
       email: "",
-      imageUrl: require("@/assets/img/guest.jpg"),
-      tabPane1: [
-        { image: require("@/assets/img/examples/studio-1.jpg") },
-        { image: require("@/assets/img/examples/studio-2.jpg") },
-        { image: require("@/assets/img/examples/studio-4.jpg") },
-        { image: require("@/assets/img/examples/studio-5.jpg") }
-      ],
-      tabPane2: [
-        { image: require("@/assets/img/examples/olu-eletu.jpg") },
-        { image: require("@/assets/img/examples/clem-onojeghuo.jpg") },
-        { image: require("@/assets/img/examples/cynthia-del-rio.jpg") },
-        { image: require("@/assets/img/examples/mariya-georgieva.jpg") },
-        { image: require("@/assets/img/examples/clem-onojegaw.jpg") }
-      ],
-      tabPane3: [
-        { image: require("@/assets/img/examples/mariya-georgieva.jpg") },
-        { image: require("@/assets/img/examples/studio-3.jpg") },
-        { image: require("@/assets/img/examples/clem-onojeghuo.jpg") },
-        { image: require("@/assets/img/examples/olu-eletu.jpg") },
-        { image: require("@/assets/img/examples/studio-1.jpg") }
-      ]
+      imageUrl: require("@/assets/img/guest.jpg")
     };
   },
   created() {
