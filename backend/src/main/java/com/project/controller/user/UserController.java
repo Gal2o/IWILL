@@ -97,7 +97,6 @@ public class UserController {
 	@PostMapping("/user/findPw")
 	@ApiOperation(value = "비밀번호 찾기", notes = "비밀번호 찾기 입니다.")
 	public Object findpw(@RequestParam String email) {
-		
 		return userservice.findpw(email);
 	}
 }

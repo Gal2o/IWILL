@@ -32,7 +32,10 @@ public class Runner implements ApplicationRunner {
         //auto unlock
         FileService fs = new FileService();
 
-        String coinbase = "0x731256b1ef4e69a4d439bb0d6dc601bd0008cbed";
+//        String coinbase = "0x731256b1ef4e69a4d439bb0d6dc601bd0008cbed";
+        
+        // 형님
+        String coinbase = "0xfd0e74324923e45fd44dece2e305eeeab015238c";
 
 
         JSONObject sendobj = new JSONObject();
@@ -41,7 +44,7 @@ public class Runner implements ApplicationRunner {
         JSONArray params = new JSONArray();
 
         params.put(coinbase);
-        params.put("");
+        params.put("eth");
         params.put(0);
         sendobj.put("params", params);
 		sendobj.put("id", 100);

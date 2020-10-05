@@ -76,7 +76,7 @@ public class WillController {
             @ApiImplicitParam(name = "receiver", value = "받을사람", required = true, dataType = "string"),
     })
     public ResponseEntity<Object> register(WillCreateDTO willdto) throws Exception{
-
+    	System.out.println(willdto);
         final String UID = willdto.getUid();
         final String TITLE = willdto.getTitle();
         final String TRANSKEY; // json send transaction key
