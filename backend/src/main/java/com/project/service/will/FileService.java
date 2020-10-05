@@ -64,11 +64,28 @@ public class FileService {
         return filedao.findAll();
     }
 
-    public HashMap<String,String> upload(final MultipartFile multipartFile) throws Exception {
-        //1. 파일 업로드
+    public HashMap<String,String> upload(final MultipartFile multipartFile,String uid,String date) throws Exception {
+		
+		//폴더생성
+		String path = "c:\\data\\"+uid+"\\"+date; //폴더 경로
+		File Folder = new File(path);
 
-		final File targetFile = new File("c:\\data\\" + multipartFile.getOriginalFilename()); // 저장 위치 입력
-		System.out.println(targetFile.toPath());
+		// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+		if (!Folder.exists()) {
+			try{
+				Folder.mkdir(); //폴더 생성합니다.
+			} 
+			catch(Exception e){
+				e.getStackTrace();
+			}        
+		}
+		else {
+		}
+		
+		
+		//1. 파일 업로드
+
+		final File targetFile = new File(path+"\\"+ multipartFile.getOriginalFilename()); // 저장 위치 입력
 		try {
 			final InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
@@ -174,9 +191,8 @@ public class FileService {
 			SHA = sb.toString();
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
-		
 		return SHA;
 	}
 
@@ -226,10 +242,29 @@ public class FileService {
 		return outResult.toString();
 	}
 
-	public HashMap<String,String> uploadtxt(String content) throws Exception{
+	public HashMap<String,String> uploadtxt(String content,String uid,String date) throws Exception{
 
-		File file = new File("c:\\data\\text.txt");
-		String str = "Hello world!";
+		//폴더생성
+		String path = "c:\\data\\"+uid+"\\"+date; //폴더 경로
+		File Folder = new File(path);
+
+		// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+		if (!Folder.exists()) {
+			try{
+				Folder.mkdir(); //폴더 생성합니다.
+			} 
+			catch(Exception e){
+				e.getStackTrace();
+			}        
+		}
+		else {
+		}
+		
+		
+		//1. 파일 업로드
+
+		File file = new File(path+"\\content.txt");
+		String str = content;
 		HashMap<String,String> hm = new HashMap<>();
 		
 		try {

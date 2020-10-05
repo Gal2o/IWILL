@@ -47,7 +47,7 @@ public class UserController {
 	@PostMapping("/user/signup")
 	@ApiOperation(value = "회원가입", notes = "회원 가입 입니다.")
 	@ApiImplicitParams({ 
-			@ApiImplicitParam(name = "uid", value = "사용자 UID", required = true, dataType = "string"),
+			@ApiImplicitParam(name = "uid", value = "사용자 UID", required = true, dataType = "int"),
 			@ApiImplicitParam(name = "upw", value = "사용자 Password", required = true, dataType = "string"),
 			@ApiImplicitParam(name = "accounthash", value = "사용자 hash", required = true, dataType = "string"),
 			@ApiImplicitParam(name = "email", value = "사용자 E-mail", required = true, dataType = "string"),
@@ -57,8 +57,8 @@ public class UserController {
 			@ApiImplicitParam(name = "senddate", value = "전송 날짜", required = true, dataType = "string"),
 			@ApiImplicitParam(name = "profile", value = "자기 소개", required = true, dataType = "string"),
 			@ApiImplicitParam(name = "usertype", value = "회원 유형", required = true, dataType = "int"), })
-	public Object signup(UserEntity user) {
-		System.out.println(user);
+	public Object signup(UserEntity user) throws Exception {
+		
 		return userservice.signup(user);
 	}
 
@@ -77,17 +77,26 @@ public class UserController {
 		userservice.update(user);
 	}
 
+	@PostMapping("/user/updatepw")
+	@ApiOperation(value = "비밀번호 수정", notes = "비밀번호 수정 입니다.")
+	@ApiImplicitParam(name = "userdto", value = "UserDto", required = true, dataType = "Object")
+	public Object updatepw(String email, String upw) {
+		userservice.updatepassword(email, upw);
+
+		return userservice.detail(email);
+	}
+
+
 	@PostMapping("/user/delete")
 	@ApiOperation(value = "회원 탈퇴", notes = "회원 탈퇴 입니다.")
-	@ApiImplicitParam(name = "uid", value = "사용자 uid", required = true, dataType = "string")
-	public void delete(@RequestParam String uid) {
+	@ApiImplicitParam(name = "uid", value = "사용자 uid", required = true, dataType = "int")
+	public void delete(@RequestParam int uid) {
 		userservice.delete(uid);
 	}
 
 	@PostMapping("/user/findPw")
 	@ApiOperation(value = "비밀번호 찾기", notes = "비밀번호 찾기 입니다.")
 	public Object findpw(@RequestParam String email) {
-		
 		return userservice.findpw(email);
 	}
 }
