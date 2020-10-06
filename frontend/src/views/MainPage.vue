@@ -36,15 +36,10 @@
       <div class="content">
         <div class="content-left">
           <div class="mainImg">
-            <img
-              src="../assets/img/faces/card-profile1-square.jpg"
-              alt="Circle Image"
-              class="rounded-circle"
-              :class="{ 'responsive-image': responsive }"
-            />
+            <img :src="imgurl" alt="Circle Image" class="rounded-circle" />
           </div>
           <div class="underImg">
-            <h4>내 아이디</h4>
+            <h4>{{ this.username }}</h4>
             <md-button class="md-block" href="/profile"
               ><span style="font-size: 1.3em; height: 1em;"
                 >프로필 페이지</span
@@ -124,8 +119,10 @@ export default {
     return {
       firstname: null,
       email: null,
+      username: "",
       password: null,
       leafShow: false,
+      imgurl: "",
       categories: [
         { display: true, name: "MyRecord" },
         { display: false, name: "WriteWill" },
@@ -143,6 +140,13 @@ export default {
     } else {
       this.logstate = "LogOut";
     }
+    const data = new FormData();
+    data.append("email", this.$cookies.get("UserInfo").email);
+    this.$axios.post(this.$SERVER_URL + "user/detail", data).then(res => {
+      this.email = res.data.email;
+      this.username = res.data.name;
+      this.imgurl = res.data.profile;
+    });
   },
   methods: {
     leafActive() {
