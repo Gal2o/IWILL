@@ -19,6 +19,5 @@ public class WillCreateDTO {
 
     String witness; //증인
     String receive; //이메일 받을사람
-    String senddate; // 이메일 전송 날짜
-    
+    String senddate; // 이메일 전송 날짜    
 }
