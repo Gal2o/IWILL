@@ -46,7 +46,6 @@ export default {
     return {
       code: "",
       willlists: [],
-      pp: "gh"
     };
   },
   created() {},

@@ -40,7 +40,6 @@
               src="../assets/img/faces/card-profile1-square.jpg"
               alt="Circle Image"
               class="rounded-circle"
-              :class="{ 'responsive-image': responsive }"
             />
           </div>
           <div class="underImg">
